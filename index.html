@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imran Khan | Digital Architect</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Define Inter font and set base styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background inspired by development environments */
+            color: #e6e6e6;
+            line-height: 1.75;
+            overflow-x: hidden; /* Prevent horizontal scroll caused by animations */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .section-header {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            position: relative;
+            text-shadow: 0 0 10px rgba(0, 255, 128, 0.2); /* Neon glow effect */
+            display: inline-block;
+        }
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 4px;
+            background-color: #00ff80; /* Accent green */
+            margin-top: 0.5rem;
+            border-radius: 9999px;
+        }
+        /* Custom Timeline CSS */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 4rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10px;
+            height: 100%;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .timeline-item:last-child::before {
+            height: 0; /* Stop line at the last item */
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #0d1117; /* Matches body */
+            border: 3px solid #00ff80; /* Accent green */
+            border-radius: 50%;
+            z-index: 10;
+        }
+        /* Hover effect for skill cards */
+        .skill-card {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        }
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 255, 128, 0.4);
+            background-color: #1a232e;
+        }
+
+        /* Responsive Navbar & Scroll Padding */
+        html {
+            scroll-padding-top: 5rem;
+        }
+        #navbar a {
+            transition: color 0.2s;
+        }
+        #navbar a:hover {
+            color: #00ff80;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-[#0d1117]/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
+        <div class="container flex justify-between items-center py-4">
+            <div class="text-2xl font-bold text-[#00ff80]">Imran K.</div>
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider font-semibold">
+                <a href="#hero" class="text-gray-300 hover:text-[#00ff80]">Home</a>
+                <a href="#timeline" class="text-gray-300 hover:text-[#00ff80]">Journey</a>
+                <a href="#skills" class="text-gray-300 hover:text-[#00ff80]">Skills</a>
+                <a href="#education" class="text-gray-300 hover:text-[#00ff80]">Education</a>
+                <a href="#contact" class="text-gray-300 hover:text-[#00ff80]">Contact</a>
+            </div>
+            <!-- Mobile Menu Icon (Placeholder for functionality not implemented due to single-file limit) -->
+            <button class="md:hidden text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="py-16">
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="container min-h-screen flex items-center pt-24 pb-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-8 text-center md:text-left">
+                    <h1 class="text-5xl sm:text-7xl font-extrabold mb-4 leading-tight text-white" id="hero-title">
+                        Imran Khan
+                    </h1>
+                    <h2 class="text-2xl sm:text-4xl font-light text-[#00ff80] mb-8" id="hero-subtitle">
+                        Principal Software Engineer & Digital Architect
+                    </h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto md:mx-0 mb-8" id="hero-summary">
+                        Experienced Software Engineer with **12+ years** in the industry, passionate about creating innovative, scalable solutions. My expertise spans **Frontend development (Angular, JS, HTML, CSS)** to robust **Backend technologies (PHP, Drupal, WordPress)**. I thrive on mentoring junior developers and leading cross-functional teams to deliver high-quality, maintainable code across enterprise-level projects.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#timeline" class="bg-[#00ff80] text-[#0d1117] px-8 py-3 rounded-xl font-bold hover:bg-green-400 transition transform hover:scale-105 shadow-lg shadow-green-900/50">
+                            Explore My Journey
+                        </a>
+                        <a href="linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank" class="border border-[#00ff80] text-[#00ff80] px-8 py-3 rounded-xl font-bold hover:bg-[#00ff80] hover:text-[#0d1117] transition transform hover:scale-105">
+                            LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+                <div class="md:col-span-4 flex justify-center">
+                    <!-- Placeholder for a geometric/abstract profile visual -->
+                    <div id="hero-visual" class="w-64 h-64 bg-gray-800 rounded-full flex items-center justify-center border-4 border-[#00ff80] opacity-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code-2">
+                            <path d="m18 16 4-4-4-4"/>
+                            <path d="m6 8-4 4 4 4"/>
+                            <path d="m14.5 4-5 16"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Narrative Timeline Section (Experience) -->
+        <section id="timeline" class="container py-24">
+            <h2 class="section-header text-center mx-auto mb-16">Career Journey</h2>
+            <div class="timeline-container">
+                <!-- Sabre Principal Software Engineer -->
+                <div class="timeline-item timeline-animation-target">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-[#00ff80] transition">
+                        <p class="text-sm font-light text-gray-400">Aug 2023 - Present</p>
+                        <h3 class="text-2xl font-bold text-[#00ff80] my-2">Principal Software Engineer</h3>
+                        <p class="text-xl font-semibold text-white mb-3">Sabre Corporation</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <li>Led a team of 5 software engineers in designing and developing a scalable and secure enterprise application, resulting in a **30% increase in efficiency** and a 50% reduction in system downtime.</li>
+                            <li>Mentored and coached junior engineers, conducting regular code reviews and providing guidance on best practices.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sabre Frontend Lead Developer (Angular) -->
+                <div class="timeline-item timeline-animation-target">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-[#00ff80] transition">
+                        <p class="text-sm font-light text-gray-400">Sep 2018 - Jul 2023 (4 years 11 months)</p>
+                        <h3 class="text-2xl font-bold text-[#00ff80] my-2">Frontend Lead Developer (Angular)</h3>
+                        <p class="text-xl font-semibold text-white mb-3">Sabre Corporation</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <li>Spearheaded the development of applications utilizing various technologies, with a primary focus on Frontend development.</li>
+                            <li>Oversaw and managed a team of five members, effectively delegating tasks and ensuring project completion.</li>
+                            <li>Employed strong analytical and problem-solving abilities to devise innovative solutions for complex challenges.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Orbit Software Solutions Ltd (Drupal / WordPress Developer) -->
+                <div class="timeline-item timeline-animation-target">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-[#00ff80] transition">
+                        <p class="text-sm font-light text-gray-400">Aug 2015 - Sep 2018 (3 years 2 months)</p>
+                        <h3 class="text-2xl font-bold text-[#00ff80] my-2">Drupal / WordPress Developer</h3>
+                        <p class="text-xl font-semibold text-white mb-3">Orbit Software Solutions Ltd</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <li>Developed and maintained custom themes and built custom modules/plugins for **Drupal** and **WordPress**.</li>
+                            <li>Established and managed re-usable code libraries to streamline development processes.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sitara Infotech, Approsoft, Blue Comm (Early Software Engineer Roles) -->
+                <div class="timeline-item timeline-animation-target">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-[#00ff80] transition">
+                        <p class="text-sm font-light text-gray-400">May 2011 - Jul 2015 (4 years 2 months)</p>
+                        <h3 class="text-2xl font-bold text-[#00ff80] my-2">Software Engineer (Wordpress/PHP Focus)</h3>
+                        <p class="text-xl font-semibold text-white mb-3">Various: Sitara, Approsoft, Blue Comm Technologies</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <li>Spearheaded development of robust **WordPress themes and plugins** for client requirements.</li>
+                            <li>Collaborated with cross-functional teams to assess and enhance software/hardware interfaces and deliver sturdy solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Samba Bank LTD (Branch Services Officer - The Foundation) -->
+                <div class="timeline-item timeline-animation-target">
+                    <div class="timeline-dot"></div>
+                    <div class="ml-8 p-6 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-[#00ff80] transition">
+                        <p class="text-sm font-light text-gray-400">Mar 2007 - Apr 2011 (4 years 2 months)</p>
+                        <h3 class="text-2xl font-bold text-[#00ff80] my-2">Branch Services Officer (Banking & IT Ops)</h3>
+                        <p class="text-xl font-semibold text-white mb-3">Samba Bank LTD</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-400">
+                            <li>Executed back-office branch operations including A/C Opening, Term Deposit Booking, and ATM Card/PIN Issuance.</li>
+                            <li>Managed IT Operations and provided Desktop support (Software Installation, License Checking, Network Monitoring), showcasing early technical skills.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills Matrix Section -->
+        <section id="skills" class="container py-24">
+            <h2 class="section-header text-center mx-auto mb-16">Core Skills Matrix</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6" id="skill-grid">
+                <!-- Frontend/Core Skills -->
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-angular"><path d="M12 2v20"/><path d="m14 4-2 3-2-3"/><path d="m14 20-2-3-2 3"/><path d="m6 8-4 4 4 4"/><path d="m18 8 4 4-4 4"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">Angular</h4>
+                    <p class="text-sm text-gray-400 mt-1">Lead Development</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">JavaScript / JQuery</h4>
+                    <p class="text-sm text-gray-400 mt-1">Client-Side Logic</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-grid"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="3" x2="21" y1="9" y2="9"/><line x1="3" x2="21" y1="15" y2="15"/><line x1="9" x2="9" y1="3" y2="21"/><line x1="15" x2="15" y1="3" y2="21"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">HTML / CSS</h4>
+                    <p class="text-sm text-gray-400 mt-1">Responsive Design</p>
+                </div>
+                <!-- Backend/CMS Skills -->
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">PHP / Codeigniter</h4>
+                    <p class="text-sm text-gray-400 mt-1">Server-Side Logic</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trello"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><rect width="7" height="4" x="7" y="7" rx="1"/><rect width="7" height="4" x="10" y="13" rx="1"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">WordPress / Drupal</h4>
+                    <p class="text-sm text-gray-400 mt-1">CMS Development</p>
+                </div>
+                <!-- Design/Soft Skills -->
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">Team Leadership</h4>
+                    <p class="text-sm text-gray-400 mt-1">Mentoring & Strategy</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand-2"><path d="m21.5 12-1.88-1.88a5.5 5.5 0 0 0-7.79 0c-.82.82-1.64 1.64-2.47 2.47-2.65 2.65-4.43 4.43-5.56 5.56a1 1 0 0 0 0 1.42l.7.7"/><path d="m14 7 1-1 3.4 3.4-1 1"/><path d="m13 10 1 1 1.7 1.7-1 1"/><path d="m12 13 1 1 .6.6-1 1"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">Figma / Adobe XD</h4>
+                    <p class="text-sm text-gray-400 mt-1">Design & Prototyping</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-branch"><line x1="6" x2="6" y1="3" y2="15"/><path d="M18 6c0 1.7-1.3 3-3 3H7"/><path d="m3 21 3-3 3 3"/><path d="M18 21v-7"/><path d="m15 3 3 3 3-3"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">Code Review</h4>
+                    <p class="text-sm text-gray-400 mt-1">Best Practices / Git</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M20 15h2"/><path d="M15 2h2"/><path d="M15 20h2"/><path d="M2 9h2"/><path d="M20 9h2"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">REST / APIs</h4>
+                    <p class="text-sm text-gray-400 mt-1">Integration & Design</p>
+                </div>
+                <div class="skill-card p-6 rounded-xl bg-gray-800 border border-transparent flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-crosshair"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>
+                    <h4 class="text-xl font-semibold mt-4 text-white">Attention to Detail</h4>
+                    <p class="text-sm text-gray-400 mt-1">Quality Assurance</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Education Section -->
+        <section id="education" class="container py-24 bg-gray-900/40 rounded-3xl p-8 lg:p-16">
+            <h2 class="section-header text-center mx-auto mb-16">Academic Foundation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- MSc(CS) -->
+                <div class="p-6 rounded-xl bg-gray-800/70 border border-gray-700 education-item-anim">
+                    <p class="text-sm font-light text-gray-400">2003 - 2006</p>
+                    <h4 class="text-xl font-bold text-white my-2">MSc(CS), Computer Science</h4>
+                    <p class="text-lg text-[#00ff80]">University of Agriculture, Faisalabad</p>
+                </div>
+                <!-- B.Com -->
+                <div class="p-6 rounded-xl bg-gray-800/70 border border-gray-700 education-item-anim">
+                    <p class="text-sm font-light text-gray-400">1999 - 2001</p>
+                    <h4 class="text-xl font-bold text-white my-2">B.Com, Commerce</h4>
+                    <p class="text-lg text-[#00ff80]">Pakistan College of Commerce</p>
+                </div>
+                <!-- FSC(Pre-ENGG) -->
+                <div class="p-6 rounded-xl bg-gray-800/70 border border-gray-700 education-item-anim">
+                    <p class="text-sm font-light text-gray-400">1997 - 1999</p>
+                    <h4 class="text-xl font-bold text-white my-2">FSC(Pre-ENGG), Science</h4>
+                    <p class="text-lg text-[#00ff80]">Shiblee College of Science</p>
+                </div>
+                <!-- Certifications -->
+                <div class="p-6 rounded-xl bg-gray-800/70 border border-gray-700 education-item-anim">
+                    <p class="text-sm font-light text-gray-400">Certifications & Diplomas</p>
+                    <h4 class="text-xl font-bold text-white my-2">Specialized Training</h4>
+                    <ul class="text-sm space-y-1 text-[#00ff80]">
+                        <li>ACCP (DISM) - APTECH</li>
+                        <li>E-COMMERCE - NICON</li>
+                        <li>Diploma in VB & VFP / MS Office</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 5. Contact Section -->
+        <section id="contact" class="container py-24">
+            <h2 class="section-header text-center mx-auto mb-16">Connect & Collaborate</h2>
+            <div class="max-w-xl mx-auto text-center p-8 lg:p-10 bg-gray-800/70 rounded-2xl border-4 border-[#00ff80]/50 contact-anim-target">
+                <p class="text-lg text-gray-300 mb-6">
+                    I'm open to discussing potential collaborations or job opportunities. Reach out using the details below or connect on LinkedIn.
+                </p>
+                <div class="space-y-4 text-left inline-block">
+                    <div class="flex items-center space-x-3 text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <a href="mailto:khan_imran@hotmail.com" class="text-white hover:text-[#00ff80] transition">khan_imran@hotmail.com</a>
+                    </div>
+                    <div class="flex items-center space-x-3 text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 0-6-6H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h7"/><path d="M10 12v6"/><path d="M10 12a4 4 0 0 1 4-4"/><circle cx="7" cy="7" r="2"/></svg>
+                        <a href="linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank" class="text-white hover:text-[#00ff80] transition">LinkedIn Profile</a>
+                    </div>
+                    <div class="flex items-center space-x-3 text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6.7-6.7A19.79 19.79 0 0 1 2 4.18V2a2 2 0 0 1 2-2h3.18a2 2 0 0 1 2 1.73l1.72 9.5a2 2 0 0 1-.41 1.76l-1.35 1.35a16 16 0 0 0 6.64 6.64l1.35-1.35a2 2 0 0 1 1.76-.41l9.5 1.72a2 2 0 0 1 1.73 2z"/></svg>
+                        <span class="text-white">+923110728411 / +923346629424</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8 border-t border-gray-800 text-center text-sm text-gray-500">
+        &copy; 2025 Imran Khan | Interactive Portfolio Built with GSAP & Tailwind
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // --- GSAP Animations ---
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 1. Hero Entrance Animation
+        const heroTimeline = gsap.timeline();
+        heroTimeline
+            .from("#hero-title", { y: 50, opacity: 0, duration: 0.8, ease: "power2.out" })
+            .from("#hero-subtitle", { x: -50, opacity: 0, duration: 0.6, ease: "power2.out" }, "-=0.4")
+            .from("#hero-summary", { opacity: 0, duration: 0.5 }, "-=0.2")
+            .from("#hero-visual", { scale: 0.5, opacity: 0, duration: 0.7, ease: "elastic.out(1, 0.5)" }, "-=0.3");
+
+
+        // 2. Timeline Scroll Animation
+        gsap.utils.toArray(".timeline-animation-target").forEach((item, i) => {
+            gsap.from(item, {
+                opacity: 0,
+                x: i % 2 === 0 ? 100 : -100, // Alternate entry direction
+                scale: 0.9,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%", // Start animation when the item is 85% from the top
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse", // Play once on entry, reverse on exit
+                }
+            });
+        });
+
+        // 3. Skills Matrix Animation (Staggered Fade In)
+        gsap.from("#skill-grid .skill-card", {
+            y: 50,
+            opacity: 0,
+            stagger: 0.1, // Stagger the animation of each card
+            scrollTrigger: {
+                trigger: "#skills",
+                start: "top 70%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse",
+            }
+        });
+
+        // 4. Education Animation
+        gsap.from(".education-item-anim", {
+            opacity: 0,
+            y: 30,
+            stagger: 0.2,
+            duration: 0.6,
+            scrollTrigger: {
+                trigger: "#education",
+                start: "top 75%",
+                end: "bottom 30%",
+                toggleActions: "play none none reverse",
+            }
+        });
+
+        // 5. Contact Fade In
+        gsap.from(".contact-anim-target", {
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: "#contact",
+                start: "top 70%",
+                toggleActions: "play none none reverse",
+            }
+        });
+    </script>
+</body>
+</html>
