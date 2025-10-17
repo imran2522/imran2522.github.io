@@ -1,261 +1,652 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Imran Ahmed Khan — Interactive Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <meta name="description" content="Interactive one-page portfolio for Imran Ahmed Khan — Software Engineer, Frontend lead.">
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --accent:#6ee7b7; --muted:#94a3b8; --glass: rgba(255,255,255,0.04);
-      --max-width:1100px; --radius:16px; --gap:20px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef8;background:linear-gradient(180deg,#071025 0%, #07172b 60%);-webkit-font-smoothing:antialiased}
-    .wrap{max-width:var(--max-width);margin:0 auto;padding:48px 24px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imran Ahmed Khan - Digital Architect Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load GSAP and ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for look and feel */
+        :root {
+            --primary-color: #4F46E5; /* Indigo-600 */
+            --secondary-color: #1F2937; /* Gray-800 */
+            --background-color: #0F172A; /* Slate-900 */
+            --text-color: #F8FAFC; /* Slate-50 */
+        }
 
-    /* HERO */
-    header.hero{display:grid;grid-template-columns:1fr 360px;gap:36px;align-items:center;margin-bottom:36px}
-    .intro{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:var(--radius);backdrop-filter: blur(6px);}
-    .eyebrow{display:inline-block;padding:6px 10px;background:rgba(255,255,255,0.03);border-radius:999px;color:var(--accent);font-weight:600;font-size:13px}
-    h1{margin:14px 0 6px;font-size:34px;line-height:1;color:#fff}
-    p.lead{margin:0;color:var(--muted);font-size:15px}
-    .cta{margin-top:18px;display:flex;gap:12px}
-    .btn{padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);font-weight:600;text-decoration:none}
-    .avatar{position:relative;height:100%;min-height:260px;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#021124,#052236)}
-    .avatar h2{color:#fff;margin:0;font-size:20px}
-    .waves{position:absolute;inset:0;opacity:0.06}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
 
-    /* Sections */
-    section{margin:28px 0;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.014), transparent);border-radius:14px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    h3{margin:0 0 8px;color:#cfeef0}
-    .muted{color:var(--muted);font-size:14px}
+        /* Scrollbar styling for a sleeker look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-    /* Timeline */
-    .timeline{position:relative;padding-left:24px}
-    .timeline::before{content:'';position:absolute;left:8px;top:10px;bottom:10px;width:3px;background:linear-gradient(#203247,#062435);border-radius:8px}
-    .event{position:relative;margin-bottom:20px;padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.02)}
-    .event .meta{display:flex;justify-content:space-between;gap:10px}
-    .dot{position:absolute;left:-3px;width:14px;height:14px;background:var(--accent);border-radius:50%;top:18px;box-shadow:0 0 16px rgba(110,231,183,0.12)}
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+        }
 
-    /* Skills */
-    .skills{display:flex;flex-direction:column;gap:12px}
-    .skill{display:flex;flex-direction:column}
-    .bar{height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
-    .bar > i{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--accent),#60a5fa)}
-    .skill .label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px}
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
 
-    /* Projects */
-    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    .card{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);transition:transform .35s cubic-bezier(.2,.9,.2,1),box-shadow .35s}
-    .card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 40px rgba(2,6,23,0.6)}
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:12px;color:var(--muted)}
+        /* The timeline container with a pseudo-element for the vertical line */
+        .timeline {
+            position: relative;
+        }
 
-    /* Contact */
-    .contact{display:flex;gap:18px;align-items:flex-start}
-    .contact .info{min-width:220px}
-    .social a{display:inline-block;margin-right:8px;color:var(--muted);text-decoration:none}
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 12px;
+            width: 2px;
+            height: 100%;
+            background-color: #374151; /* Gray-700 */
+            z-index: 0;
+        }
 
-    /* Footer */
-    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+        @media (min-width: 768px) {
+            .timeline::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
 
-    /* Responsive */
-    @media (max-width:900px){
-      header.hero{grid-template-columns:1fr;}
-      .projects{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-    }
-  </style>
+        /* Timeline item styling */
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-item:nth-child(odd) {
+                padding-left: 0;
+                padding-right: calc(50% + 30px);
+                text-align: right;
+            }
+
+            .timeline-item:nth-child(even) {
+                padding-left: calc(50% + 30px);
+                padding-right: 0;
+                text-align: left;
+            }
+        }
+
+        /* The animated circle dot */
+        .timeline-dot {
+            position: absolute;
+            top: 24px;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background-color: var(--background-color);
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .timeline-item:nth-child(odd) .timeline-dot {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Hover effect for skill cards */
+        .skill-card {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Keyframe for a subtle pulse animation on the contact button */
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.33);
+            }
+            80%, 100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse-dot {
+            0% {
+                transform: scale(0.6);
+            }
+            50% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0.6);
+            }
+        }
+
+        .pulse-effect {
+            position: relative;
+        }
+
+        .pulse-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: 9999px;
+            border: 1px solid var(--primary-color);
+            animation: pulse-ring 2.25s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+        }
+
+        .pulse-effect::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            animation: pulse-dot 2.25s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+    </style>
 </head>
-<body>
-  <div class="wrap">
-    <header class="hero">
-      <div class="intro">
-        <span class="eyebrow">Software Engineer · Frontend Lead</span>
-        <h1 id="name">Imran Ahmed Khan</h1>
-        <p class="lead" id="summary">Experienced Software Engineer with 12+ years building web applications — HTML/CSS/JS, Angular, PHP, WordPress, Drupal. I craft pragmatic, maintainable UI and mentor teams to ship quality products.</p>
-        <div class="cta">
-          <a class="btn" href="#projects">View Projects</a>
-          <a class="btn" href="mailto:khan_imran@hotmail.com">Email Me</a>
-        </div>
-      </div>
-      <div class="avatar" aria-hidden="true">
-        <svg class="waves" viewBox="0 0 600 400" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#093b2b"/><stop offset="1" stop-color="#061227"/></linearGradient></defs><rect width="600" height="400" fill="url(#g)"/></svg>
-        <div style="z-index:2;text-align:center;color:#cfeef0;padding:20px">
-          <h2>Hi — I build delightful frontends.</h2>
-          <p class="muted">Leadership, UX focus, performance-driven engineering.</p>
-        </div>
-      </div>
-    </header>
+<body class="antialiased">
 
-    <main>
-      <section aria-labelledby="experience-title">
-        <h3 id="experience-title">Narrative Timeline</h3>
-        <p class="muted">A short journey of roles and impact — trimmed to highlights.</p>
-        <div class="grid">
-          <div class="timeline" id="timeline">
-            <!-- timeline events will be injected from JS -->
-          </div>
-          <div>
-            <h3>Quick Impact</h3>
-            <ul class="muted">
-              <li>Led teams of 5+ engineers; improved efficiency & uptime.</li>
-              <li>Built scalable frontends with Angular and modern JS.</li>
-              <li>Delivered cross-platform solutions for enterprise customers.</li>
-            </ul>
-            <div style="height:16px"></div>
-            <h3>Education & Certifications</h3>
-            <p class="muted">MSc (Computer Science) — University of Agriculture, Faisalabad.<br/>ACCP (DISM) — APTECH.</p>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="skills-title">
-        <h3 id="skills-title">Skills & Tools</h3>
-        <p class="muted">Technical strengths, day-to-day tools, and craft.</p>
-        <div class="skills" id="skills">
-          <!-- skills animated by JS -->
-        </div>
-      </section>
-
-      <section id="projects" aria-labelledby="projects-title">
-        <h3 id="projects-title">Selected Projects</h3>
-        <p class="muted">Small selection — focused on variety and impact.</p>
-        <div class="projects" id="project-grid">
-          <!-- project cards injected by JS -->
-        </div>
-      </section>
-
-      <section aria-labelledby="contact-title">
-        <h3 id="contact-title">Contact</h3>
-        <div class="contact">
-          <div class="info">
-            <p class="muted">Email: <a href="mailto:khan_imran@hotmail.com">khan_imran@hotmail.com</a></p>
-            <p class="muted">Phone: +92 311 0728411 · +92 334 6629424</p>
-            <p class="muted">LinkedIn: <a href="https://www.linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank">/in/imran-ahmed-khan-11b26730</a></p>
-            <div class="social" style="margin-top:8px">
-              <a href="#" title="GitHub">GitHub</a>
-              <a href="#" title="Dribbble">Dribbble</a>
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-sm shadow-xl transition-all duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#hero" class="text-xl font-bold text-indigo-400 tracking-wider hover:text-indigo-300 transition duration-150">I.A.K</a>
+                <div class="space-x-4 flex">
+                    <a href="#timeline" class="text-sm font-medium text-slate-300 hover:text-indigo-400 transition duration-150">Timeline</a>
+                    <a href="#skills" class="text-sm font-medium text-slate-300 hover:text-indigo-400 transition duration-150">Expertise</a>
+                    <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-indigo-400 transition duration-150">Connect</a>
+                </div>
             </div>
-          </div>
-          <form class="contact-form" onsubmit="event.preventDefault();alert('Thanks — I\'ll get back to you!');" style="flex:1;">
-            <label class="muted">Message</label>
-            <textarea required rows="5" style="width:100%;resize:vertical;margin-top:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#e6eef8;padding:10px"></textarea>
-            <div style="height:10px"></div>
-            <button class="btn" style="border-radius:10px">Send</button>
-          </form>
         </div>
-      </section>
+    </nav>
 
-      <footer>Designed & built by Imran · Interactive one-page CV · Last updated: Oct 2025</footer>
+    <main class="pt-16">
+
+        <!-- 1. Hero Section: The Digital Architect -->
+        <section id="hero" class="relative overflow-hidden pt-24 pb-32 md:pt-40 md:pb-48 bg-slate-900 border-b border-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4">
+                    IMRAN AHMED KHAN
+                </h1>
+                <h2 class="text-2xl sm:text-4xl lg:text-5xl font-light text-indigo-400 mb-8 max-w-4xl">
+                    <span id="hero-title" class="inline-block">Principal Software Engineer | 12+ Years Architecting Digital Solutions</span>
+                </h2>
+                <p class="text-lg text-slate-300 max-w-3xl mb-12 opacity-0" id="hero-summary">
+                    Experienced Software Engineer with a passion for creating innovative solutions to complex problems. My career spans full-stack development, CMS expertise (Drupal/WordPress), and leadership roles focusing on scalable, secure enterprise Angular applications. A firm believer in collaboration, high-quality code, and mentoring the next generation of developers.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="https://linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg shadow-xl transition duration-300 transform hover:scale-[1.02] inline-flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M16.338 16.338H13.67V12.93c0-.853-.016-1.956-1.195-1.956-1.195 0-1.378.932-1.378 1.899v3.465H8.767V7.817h2.56V9.08c.356-.68.976-1.195 2.518-1.195 2.693 0 3.197 1.77 3.197 4.075v4.37h-.001zM5.337 6.197c-1.022 0-1.854-.832-1.854-1.855 0-1.022.832-1.854 1.854-1.854 1.023 0 1.856.832 1.856 1.854 0 1.023-.833 1.855-1.856 1.855zM6.67 16.338H3.999V7.817H6.67v8.521zM1.336 0h17.327C18.995 0 20 1.006 20 2.25v15.5c0 1.244-1.005 2.25-2.25 2.25H2.25C1.005 20 0 18.994 0 17.75V2.25C0 1.006 1.005 0 2.25 0h-0.914L1.336 0z"></path></svg>
+                        LinkedIn Profile
+                    </a>
+                    <a href="#contact" class="bg-gray-700 hover:bg-gray-600 text-slate-200 font-semibold py-3 px-8 rounded-lg shadow-xl transition duration-300 transform hover:scale-[1.02] inline-flex items-center justify-center">
+                        Contact Directly
+                    </a>
+                </div>
+            </div>
+
+             <!-- Background Abstract Geometry -->
+            <div class="absolute inset-0 z-0 opacity-10">
+                <svg class="w-full h-full" viewBox="0 0 1440 810" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0H1440V810H0V0ZM480 0V810M960 0V810M0 270H1440M0 540H1440" stroke="#4F46E5" stroke-opacity="0.3" stroke-width="1"/>
+                    <circle cx="200" cy="150" r="100" stroke="#4F46E5" stroke-opacity="0.5" stroke-width="10"/>
+                    <rect x="1100" y="550" width="200" height="200" stroke="#4F46E5" stroke-opacity="0.5" stroke-width="10"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 2. Timeline Section: Career Narrative -->
+        <section id="timeline" class="py-24 md:py-32 bg-slate-800 border-b border-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-4xl font-bold text-center text-white mb-4 opacity-0 section-header">Career Trajectory</h3>
+                <p class="text-xl text-center text-slate-400 mb-16 opacity-0 section-subheader">A 12+ year journey from CMS development to Principal Engineering Leadership.</p>
+
+                <div class="timeline">
+
+                    <!-- Job 1: Principal Software Engineer -->
+                    <div class="timeline-item mb-12">
+                        <div class="timeline-dot dot-animate"></div>
+                        <div class="timeline-content p-6 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-2xl timeline-card opacity-0">
+                            <div class="text-xs font-semibold uppercase text-indigo-400 mb-1">Aug 2023 - Present</div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Principal Software Engineer</h4>
+                            <p class="text-lg font-medium text-slate-300 mb-3">Sabre Corporation</p>
+                            <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                <li>Led a team of 5 in designing a scalable enterprise application, achieving a **30% efficiency increase** and **50% system downtime reduction**.</li>
+                                <li>Collaborated with product management to define requirements and led a new feature development, driving a **20% increase in customer satisfaction**.</li>
+                                <li>Mentored junior engineers, improving code quality and reducing time-to-market.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 2: Frontend Lead Developer -->
+                    <div class="timeline-item mb-12">
+                        <div class="timeline-dot dot-animate"></div>
+                        <div class="timeline-content p-6 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-2xl timeline-card opacity-0">
+                            <div class="text-xs font-semibold uppercase text-indigo-400 mb-1">Sep 2018 - Jul 2023 (4 years 11 months)</div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Frontend Lead Developer (Angular)</h4>
+                            <p class="text-lg font-medium text-slate-300 mb-3">Sabre Corporation</p>
+                            <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                <li>Spearheaded development of complex applications with a primary focus on **Angular frontend architecture**.</li>
+                                <li>Managed a team of five, delegating tasks and ensuring successful project completion.</li>
+                                <li>Applied strong analytical skills to devise innovative solutions for complex challenges.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 3: Drupal / WordPress Developer -->
+                    <div class="timeline-item mb-12">
+                        <div class="timeline-dot dot-animate"></div>
+                        <div class="timeline-content p-6 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-2xl timeline-card opacity-0">
+                            <div class="text-xs font-semibold uppercase text-indigo-400 mb-1">Aug 2015 - Sep 2018 (3 years 2 months)</div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Drupal / WordPress Developer</h4>
+                            <p class="text-lg font-medium text-slate-300 mb-3">Orbit Software Solutions Ltd</p>
+                            <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                <li>Developed and maintained custom themes and built custom modules/plugins for **Drupal and WordPress**.</li>
+                                <li>Established and managed re-usable code libraries to streamline development.</li>
+                                <li>Leveraged web analytics to inform design decisions and enhance site performance.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 4: Transition to Tech (Consolidated) -->
+                    <div class="timeline-item mb-12">
+                        <div class="timeline-dot dot-animate"></div>
+                        <div class="timeline-content p-6 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-2xl timeline-card opacity-0">
+                            <div class="text-xs font-semibold uppercase text-indigo-400 mb-1">Jan 2014 - Jul 2015</div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Early Software Engineering Roles</h4>
+                            <p class="text-lg font-medium text-slate-300 mb-3">Sitara Infotech & Approsoft Technologies</p>
+                            <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                <li>Focused on creating and implementing custom **WordPress themes and plugins**.</li>
+                                <li>Collaborated with cross-functional teams to design robust, scalable solutions.</li>
+                                <li>Evaluated specifications and devised technology solutions that surpassed performance benchmarks.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 5: Initial Tech Role -->
+                    <div class="timeline-item mb-12">
+                        <div class="timeline-dot dot-animate"></div>
+                        <div class="timeline-content p-6 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-2xl timeline-card opacity-0">
+                            <div class="text-xs font-semibold uppercase text-indigo-400 mb-1">May 2011 - Jan 2014</div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Software Engineer</h4>
+                            <p class="text-lg font-medium text-slate-300 mb-3">Blue Comm Technologies</p>
+                            <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                <li>Spearheaded development of WordPress themes and plugins at a professional level.</li>
+                                <li>Coordinated with teams to assess and enhance software and hardware interfaces.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job 6: Banking & Accounting Background (Before IT Focus) -->
+                    <div class="timeline-item mb-12">
+                        <div class="timeline-dot dot-animate"></div>
+                        <div class="timeline-content p-6 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-2xl timeline-card opacity-0">
+                            <div class="text-xs font-semibold uppercase text-indigo-400 mb-1">Mar 2007 - Apr 2011</div>
+                            <h4 class="text-2xl font-bold text-white mb-2">Branch Services Officer (Finance/Admin)</h4>
+                            <p class="text-lg font-medium text-slate-300 mb-3">Samba Bank LTD</p>
+                            <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                <li>Executed back-office branch operations (A/C Opening, Remittances, MIS Reports).</li>
+                                <li>Handled administrative operations and compliance coordination.</li>
+                                <li>Gained foundational knowledge in **Banking and Accounting**, a unique asset in FinTech roles.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills Section: Core Expertise Grid -->
+        <section id="skills" class="py-24 md:py-32 bg-slate-900 border-b border-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-4xl font-bold text-center text-white mb-4 opacity-0 section-header">Expertise Blueprint</h3>
+                <p class="text-xl text-center text-slate-400 mb-16 opacity-0 section-subheader">A focused view of my core competencies, blending modern frontend and robust architecture.</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+                    <!-- Core Technologies -->
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <p class="font-semibold text-lg text-white">Angular</p>
+                        <p class="text-sm text-indigo-300">Frontend Lead Focus</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <p class="font-semibold text-lg text-white">JavaScript / Jquery</p>
+                        <p class="text-sm text-indigo-300">Client-side Logic</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <p class="font-semibold text-lg text-white">HTML / CSS</p>
+                        <p class="text-sm text-indigo-300">Web Foundation</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        <p class="font-semibold text-lg text-white">APIs / REST</p>
+                        <p class="text-sm text-indigo-300">System Integration</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <p class="font-semibold text-lg text-white">Code Review</p>
+                        <p class="text-sm text-indigo-300">Quality Assurance</p>
+                    </div>
+
+                    <!-- Previous/Backend Experience -->
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.933-1.57 3.5-3.5 3.5S5 12.933 5 11 6.57 7.5 8.5 7.5 12 9.067 12 11zm-5.5-2h7M16 4h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"></path></svg>
+                        <p class="font-semibold text-lg text-white">WordPress</p>
+                        <p class="text-sm text-indigo-300">CMS Development</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9h6"></path></svg>
+                        <p class="font-semibold text-lg text-white">Drupal</p>
+                        <p class="text-sm text-indigo-300">Custom Modules</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                        <p class="font-semibold text-lg text-white">PHP / Codeigniter</p>
+                        <p class="text-sm text-indigo-300">Backend Logic</p>
+                    </div>
+
+                    <!-- Soft Skills / Other -->
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <p class="font-semibold text-lg text-white">Leadership</p>
+                        <p class="text-sm text-indigo-300">Team Management</p>
+                    </div>
+                    <div class="skill-card p-6 bg-gray-800 rounded-xl text-center shadow-lg opacity-0 skill-animate">
+                        <svg class="w-10 h-10 mx-auto mb-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <p class="font-semibold text-lg text-white">Mentoring</p>
+                        <p class="text-sm text-indigo-300">Junior Dev Guidance</p>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center">
+                    <p class="text-xl font-medium text-slate-300">Design Tools & Other Skills:</p>
+                    <p class="text-lg text-slate-400 mt-2">Figma, Adobe XD, Adobe Photoshop, Web Applications, Cross-browser Compatibility, Computer Science, Banking & Accounting.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Projects Section: Key Achievement Highlights -->
+        <section id="projects" class="py-24 md:py-32 bg-slate-800 border-b border-indigo-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-4xl font-bold text-center text-white mb-4 opacity-0 section-header">Key Achievements</h3>
+                <p class="text-xl text-center text-slate-400 mb-16 opacity-0 section-subheader">Highlights of measurable success and impact across various roles.</p>
+
+                <div class="grid md:grid-cols-2 gap-10">
+
+                    <!-- Project Card 1: Enterprise Application -->
+                    <div class="project-card p-8 bg-slate-900 rounded-xl shadow-2xl transition duration-300 hover:shadow-indigo-500/30 border border-transparent hover:border-indigo-600 opacity-0 project-animate">
+                        <h4 class="text-3xl font-bold text-indigo-400 mb-2">Enterprise Platform Scalability</h4>
+                        <p class="text-sm font-medium uppercase text-slate-500 mb-4">Sabre Corporation (Principal SE)</p>
+                        <p class="text-slate-300 mb-4">
+                            Led the technical design and development of core features for a highly complex, mission-critical enterprise application.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li class="font-semibold text-white">30% Increase in Operational Efficiency</li>
+                            <li class="font-semibold text-white">50% Reduction in System Downtime</li>
+                            <li>Architected and implemented security and performance optimizations.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Project Card 2: Customer Feature Development -->
+                    <div class="project-card p-8 bg-slate-900 rounded-xl shadow-2xl transition duration-300 hover:shadow-indigo-500/30 border border-transparent hover:border-indigo-600 opacity-0 project-animate">
+                        <h4 class="text-3xl font-bold text-indigo-400 mb-2">Next-Gen Customer Feature Rollout</h4>
+                        <p class="text-sm font-medium uppercase text-slate-500 mb-4">Sabre Corporation (Principal SE)</p>
+                        <p class="text-slate-300 mb-4">
+                            Collaborated directly with Product Management to define and deliver a major new feature set, ensuring technical feasibility and high user adoption.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li class="font-semibold text-white">20% Increase in Customer Satisfaction</li>
+                            <li>Seamless integration into existing Angular codebase.</li>
+                            <li>Provided continuous technical guidance throughout the release cycle.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Project Card 3: CMS Code Standardization -->
+                    <div class="project-card p-8 bg-slate-900 rounded-xl shadow-2xl transition duration-300 hover:shadow-indigo-500/30 border border-transparent hover:border-indigo-600 opacity-0 project-animate">
+                        <h4 class="text-3xl font-bold text-indigo-400 mb-2">Re-usable Code Libraries</h4>
+                        <p class="text-sm font-medium uppercase text-slate-500 mb-4">Orbit Software Solutions (Developer)</p>
+                        <p class="text-slate-300 mb-4">
+                            Standardized development practices across multiple WordPress and Drupal projects by creating and maintaining modular, re-usable code libraries and custom templates.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Significantly improved time-to-market for new client websites.</li>
+                            <li>Optimized functionality through custom plugin and module development.</li>
+                            <li>Managed bug triage and enhancement implementation via Git.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Project Card 4: Banking Systems Foundation -->
+                    <div class="project-card p-8 bg-slate-900 rounded-xl shadow-2xl transition duration-300 hover:shadow-indigo-500/30 border border-transparent hover:border-indigo-600 opacity-0 project-animate">
+                        <h4 class="text-3xl font-bold text-indigo-400 mb-2">Financial/Admin Operations</h4>
+                        <p class="text-sm font-medium uppercase text-slate-500 mb-4">Samba Bank LTD (Officer)</p>
+                        <p class="text-slate-300 mb-4">
+                            Gained crucial early career experience in high-compliance financial environments, handling core administrative and accounting operations.
+                        </p>
+                        <ul class="list-disc list-inside text-slate-400 space-y-2">
+                            <li>Managed high-stakes tasks like Remittances, FX Return submission, and Cheque Issuance.</li>
+                            <li>Provides a strong **FinTech/Domain** background for current software roles.</li>
+                            <li>Handled IT operations support and management.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 5. Contact Section: Call to Action -->
+        <section id="contact" class="py-24 md:py-32 bg-slate-900">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h3 class="text-4xl font-bold text-white mb-4 opacity-0 section-header">Let's Build the Next Big Thing.</h3>
+                <p class="text-xl text-slate-400 mb-10 opacity-0 section-subheader">
+                    I'm currently open to discussing collaborations or new opportunities in software engineering, especially roles focused on **Angular, scalable architecture, and technical leadership.**
+                </p>
+
+                <div class="space-y-6 md:space-y-0 md:flex md:justify-center md:space-x-12">
+                    <!-- Email Card -->
+                    <div class="p-6 bg-slate-800 rounded-xl shadow-xl transition duration-300 hover:bg-slate-700/80 opacity-0 contact-animate">
+                        <div class="flex items-center justify-center mb-3">
+                            <svg class="w-8 h-8 text-indigo-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span class="text-2xl font-bold text-white">Email</span>
+                        </div>
+                        <a href="mailto:khan_imran@hotmail.com" class="text-lg text-indigo-300 hover:text-indigo-200 transition duration-150 underline">khan_imran@hotmail.com</a>
+                    </div>
+
+                    <!-- LinkedIn Card -->
+                    <div class="p-6 bg-slate-800 rounded-xl shadow-xl transition duration-300 hover:bg-slate-700/80 opacity-0 contact-animate">
+                        <div class="flex items-center justify-center mb-3">
+                            <svg class="w-8 h-8 text-indigo-400 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M16.338 16.338H13.67V12.93c0-.853-.016-1.956-1.195-1.956-1.195 0-1.378.932-1.378 1.899v3.465H8.767V7.817h2.56V9.08c.356-.68.976-1.195 2.518-1.195 2.693 0 3.197 1.77 3.197 4.075v4.37h-.001zM5.337 6.197c-1.022 0-1.854-.832-1.854-1.855 0-1.022.832-1.854 1.854-1.854 1.023 0 1.856.832 1.856 1.854 0 1.023-.833 1.855-1.856 1.855zM6.67 16.338H3.999V7.817H6.67v8.521zM1.336 0h17.327C18.995 0 20 1.006 20 2.25v15.5c0 1.244-1.005 2.25-2.25 2.25H2.25C1.005 20 0 18.994 0 17.75V2.25C0 1.006 1.005 0 2.25 0h-0.914L1.336 0z"></path></svg>
+                            <span class="text-2xl font-bold text-white">LinkedIn</span>
+                        </div>
+                        <a href="https://linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank" class="text-lg text-indigo-300 hover:text-indigo-200 transition duration-150 underline">Connect on LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <button class="pulse-effect bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-10 rounded-full shadow-lg transition duration-300 text-lg">
+                        Let's Talk Technology
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 border-t border-gray-700 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-500">
+                <p>&copy; 2025 Imran Ahmed Khan. Built with HTML, Tailwind CSS, and GSAP.</p>
+            </div>
+        </footer>
+
     </main>
-  </div>
 
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script>
-    // Data (pulled from your resume PDF)
-    const timelineData = [
-      {role:'Principal Software Engineer', org:'Sabre Corporation', range:'Aug 2023 - Present', bullets:['Led a team of 5 engineers, increased efficiency by 30%','Mentored junior engineers; improved code quality']},
-      {role:'Frontend Lead Developer (Angular)', org:'Sabre Corporation', range:'Sep 2018 - Jul 2023', bullets:['Spearheaded frontend projects, managed a 5-member team','Delivered high-quality client-facing apps']},
-      {role:'Drupal / WordPress Developer', org:'Orbit Software Solutions Ltd', range:'Aug 2015 - Sep 2018', bullets:['Built custom themes & plugins','Optimized web performance']},
-      {role:'Software Engineer', org:'Multiple (2011 - 2015)', range:'2011 - 2015', bullets:['Developed themes & plugins','Collaborated on cross-functional teams']},
-      {role:'Branch Services Officer', org:'Samba Bank LTD', range:'Mar 2007 - Apr 2011', bullets:['Managed back-office operations','Coordinated audits & IT support operations']}
-    ];
+    <script>
+        // GSAP ScrollTrigger Animations
+        gsap.registerPlugin(ScrollTrigger);
 
-    const skillsData = [
-      {name:'HTML / CSS / JS', pct:92},
-      {name:'Angular / Frontend Architectures', pct:88},
-      {name:'PHP / WordPress / Drupal', pct:84},
-      {name:'REST APIs & Backend Integration', pct:78},
-      {name:'Design Tools (XD, Figma, Photoshop)', pct:70}
-    ];
+        // --- 1. General Setup & Hero Animation ---
+        gsap.set("#hero-summary", { opacity: 0, y: 30 });
+        gsap.set("a[href^='#']", { ease: "power2.out" }); // Smooth links
 
-    const projectsData = [
-      {title:'Enterprise Booking UI', desc:'Scalable booking interface for travel platform — performance & accessibility focus.', tags:['Angular','Performance','Accessibility']},
-      {title:'Custom CMS Suite', desc:'Custom WordPress & Drupal solutions powering e-commerce and corporate sites.', tags:['WordPress','Drupal','PHP']},
-      {title:'Internal Tooling', desc:'Admin & reporting dashboards used to reduce operational overhead.', tags:['JS','APIs','UX']},
-      {title:'Theme Library', desc:'Reusable theme library to speed delivery for clients.', tags:['Design Systems','CSS','UX']}
-    ];
+        const tHero = gsap.timeline();
+        tHero
+            .from("#hero-title", { duration: 0.8, y: -50, opacity: 0, ease: "back.out(1.7)" })
+            .to("#hero-summary", { duration: 1.2, opacity: 1, y: 0, ease: "power2.out" }, "-=0.5")
+            .from(".flex a", { duration: 0.5, opacity: 0, x: -20, stagger: 0.1, ease: "power2.out" }, "-=0.8");
 
-    // DOM injection
-    const timelineEl = document.getElementById('timeline');
-    timelineData.forEach((t, i)=>{
-      const ev = document.createElement('div'); ev.className='event';
-      ev.innerHTML = `<div class='dot' aria-hidden='true'></div>
-        <div class='meta'><strong>${t.role}</strong><span class='muted'>${t.range}</span></div>
-        <div style='margin-top:8px' class='muted'>${t.org}</div>
-        <ul class='muted' style='margin-top:10px'>${t.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`;
-      timelineEl.appendChild(ev);
-    });
 
-    const skillsEl = document.getElementById('skills');
-    skillsData.forEach(s=>{
-      const sk = document.createElement('div'); sk.className='skill';
-      sk.innerHTML = `<div class='label'><span>${s.name}</span><span>${s.pct}%</span></div>
-        <div class='bar'><i style='width:${s.pct}%'></i></div>`;
-      skillsEl.appendChild(sk);
-    });
+        // --- 2. Navbar Shrink on Scroll ---
+        ScrollTrigger.create({
+            trigger: "body",
+            start: "top top",
+            end: 99999, // very far down
+            onUpdate: (self) => {
+                const nav = document.getElementById('navbar');
+                if (self.direction === 1 && self.progress > 0.05) { // Scrolling down past a small threshold
+                    nav.classList.add('h-14', 'shadow-2xl');
+                    nav.classList.remove('h-16', 'shadow-xl');
+                } else if (self.direction === -1 && self.progress < 0.05) { // Scrolling up near the top
+                    nav.classList.add('h-16', 'shadow-xl');
+                    nav.classList.remove('h-14', 'shadow-2xl');
+                }
+            },
+        });
 
-    const grid = document.getElementById('project-grid');
-    projectsData.forEach(p=>{
-      const c = document.createElement('div'); c.className='card';
-      c.innerHTML = `<strong>${p.title}</strong><p class='muted' style='margin-top:8px'>${p.desc}</p>
-        <div class='tags'>${p.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div>`;
-      grid.appendChild(c);
-    });
 
-    // GSAP animations
-    gsap.registerPlugin(ScrollTrigger);
+        // --- 3. Timeline Section Animations ---
+        const timelineCards = gsap.utils.toArray(".timeline-card");
+        const timelineDots = gsap.utils.toArray(".dot-animate");
 
-    // Hero intro
-    gsap.from('.intro', {y:40, opacity:0, duration:.9, ease:'power3.out'});
-    gsap.from('.avatar > div', {y:40, opacity:0, duration:1, delay:.1, ease:'power3.out'});
+        timelineCards.forEach((card, i) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%", // Start animation when card enters view
+                    toggleActions: "play none none reverse",
+                }
+            });
 
-    // timeline items stagger on scroll
-    gsap.utils.toArray('.event').forEach((el,i)=>{
-      gsap.from(el, {
-        y:30, opacity:0, duration:.7, delay:i*0.08, ease:'power3.out',
-        scrollTrigger:{trigger:el, start:'top 85%'}
-      });
-    });
+            // Dot animation
+            gsap.fromTo(timelineDots[i], { scale: 0.5, borderColor: "#374151" }, {
+                scale: 1.2,
+                duration: 0.5,
+                borderColor: "#4F46E5",
+                repeat: 1,
+                yoyo: true,
+                ease: "power1.inOut",
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse",
+                }
+            });
+        });
 
-    // skill bars animate when in view
-    gsap.from('.bar > i', {
-      width:0, duration:1.2, ease:'power3.out',
-      scrollTrigger:{trigger:'#skills', start:'top 80%'}
-    });
+        // Animate section headers/subheaders
+        gsap.utils.toArray(".section-header").forEach(header => {
+            gsap.from(header, {
+                opacity: 0,
+                y: -30,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse",
+                }
+            });
+        });
 
-    // project cards subtle rise on scroll
-    gsap.utils.toArray('.card').forEach((el)=>{
-      gsap.from(el, {y:18, opacity:0, duration:.9, ease:'power3.out', scrollTrigger:{trigger:el, start:'top 90%'}});
-    });
+        gsap.utils.toArray(".section-subheader").forEach(subheader => {
+            gsap.from(subheader, {
+                opacity: 0,
+                y: 30,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: subheader,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse",
+                }
+            });
+        });
 
-    // small parallax on hero background
-    gsap.to('.waves', {y:-30, ease:'none', scrollTrigger:{trigger:'body', start:'top top', end:'bottom bottom', scrub:true}});
 
-    // accessibility: reduce motion preference
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.globalTimeline.timeScale(0);
-    }
+        // --- 4. Skills Grid & Project Card Animation (Staggered Entry) ---
+        gsap.from(".skill-animate", {
+            opacity: 0,
+            y: 30,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#skills",
+                start: "top 70%",
+                toggleActions: "play none none reverse",
+            }
+        });
 
-    // Tiny interactive touches
-    document.querySelectorAll('.card').forEach(c=>{
-      c.addEventListener('mousemove', e=>{
-        const r = c.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width/2)/20;
-        const y = (e.clientY - r.top - r.height/2)/30;
-        c.style.transform = `translateY(-6px) rotateX(${ -y }deg) rotateY(${ x }deg)`;
-      });
-      c.addEventListener('mouseleave', ()=>c.style.transform='translateY(0) rotateX(0) rotateY(0)');
-    });
+        gsap.from(".project-animate", {
+            opacity: 0,
+            scale: 0.95,
+            stagger: 0.2,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: "#projects",
+                start: "top 70%",
+                toggleActions: "play none none reverse",
+            }
+        });
 
-    // small helper to quickly tweak theme colors from console
-    window.__theme = (accent)=>{document.documentElement.style.setProperty('--accent',accent)};
-  </script>
+        // --- 5. Contact Section Animation ---
+        gsap.from(".contact-animate", {
+            opacity: 0,
+            x: (i) => i % 2 === 0 ? -50 : 50, // Stagger direction left/right
+            stagger: 0.3,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: "#contact",
+                start: "top 80%",
+                toggleActions: "play none none reverse",
+            }
+        });
+
+    </script>
+
 </body>
 </html>
