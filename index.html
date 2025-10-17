@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Imran Ahmed Khan — Interactive Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo" href="#hero">Imran A. Khan</a>
+      <ul class="nav-links">
+        <li><a href="#timeline">Timeline</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1 class="name">Imran Ahmed Khan</h1>
+          <p class="tagline">Principal Software Engineer • Frontend Lead • Web Architect</p>
+          <p class="lead">
+            Experienced software engineer with 12+ years building web applications and enterprise tools.
+            I lead teams, mentor engineers, and design robust frontends using modern JS frameworks and
+            pragmatic architecture. I love turning complexity into clear, usable products. (Résumé content adapted.) :contentReference[oaicite:1]{index=1}
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="#projects">See work</a>
+            <a class="ghost" href="mailto:khan_imran@hotmail.com">Email</a>
+            <a class="ghost" href="https://www.linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="card-inner">
+            <h3>Snapshot</h3>
+            <ul>
+              <li><strong>Role:</strong> Principal Software Engineer (Sabre) :contentReference[oaicite:2]{index=2}</li>
+              <li><strong>Location:</strong> Remote / Pakistan</li>
+              <li><strong>Phone:</strong> +92-311-0728411</li>
+              <li><strong>Email:</strong> khan_imran@hotmail.com</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="hero-deco"></div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="section timeline">
+      <h2 class="section-title">Timeline — journey & impact</h2>
+      <p class="section-sub">Selected roles, leadership and outcomes (extracted from résumé). :contentReference[oaicite:3]{index=3}</p>
+
+      <div class="timeline-list">
+        <article class="timeline-item">
+          <div class="timeline-meta">Aug 2023 — Present</div>
+          <div class="timeline-body">
+            <h3>Principal Software Engineer — Sabre Corporation</h3>
+            <p>Led a team of 5 engineers to design and deliver a scalable enterprise application that increased efficiency and reduced downtime. Mentored junior engineers and drove feature delivery that increased customer satisfaction. :contentReference[oaicite:4]{index=4}</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-meta">Sep 2018 — Jul 2023</div>
+          <div class="timeline-body">
+            <h3>Frontend Lead Developer (Angular) — Sabre Corporation</h3>
+            <p>Spearheaded frontend development, led a team, and drove projects from concept to production using Angular and modern frontend tooling. :contentReference[oaicite:5]{index=5}</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-meta">Aug 2015 — Sep 2018</div>
+          <div class="timeline-body">
+            <h3>Drupal / WordPress Developer — Orbit Software Solutions Ltd</h3>
+            <p>Built custom themes and modules, established reusable libraries and improved site performance via analytics-driven enhancements. :contentReference[oaicite:6]{index=6}</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-meta">Jan 2014 — Jul 2015</div>
+          <div class="timeline-body">
+            <h3>Software Engineer — Sitara Infotech / Approsoft / Blue Comm</h3>
+            <p>Developed custom WordPress themes/plugins, collaborated cross-functionally and delivered client-facing solutions across multiple engagements. :contentReference[oaicite:7]{index=7}</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-meta">Mar 2007 — Apr 2011</div>
+          <div class="timeline-body">
+            <h3>Branch Services Officer — Samba Bank LTD</h3>
+            <p>Managed back-office banking operations and IT/desktop support — experience that grounded my understanding of banking & accounting processes. :contentReference[oaicite:8]{index=8}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section skills">
+      <h2 class="section-title">Skills & toolkit</h2>
+      <p class="section-sub">Technologies and strengths (extracted & normalized from résumé). :contentReference[oaicite:9]{index=9}</p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h4>Frontend</h4>
+          <div class="skill-bar" data-level="95"><span>HTML / CSS / JS / Angular / jQuery</span><div class="bar"><div class="fill"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <h4>CMS & PHP</h4>
+          <div class="skill-bar" data-level="85"><span>WordPress, Drupal, CodeIgniter, PHP</span><div class="bar"><div class="fill"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <h4>Tools & Design</h4>
+          <div class="skill-bar" data-level="70"><span>Figma, Adobe XD, Photoshop</span><div class="bar"><div class="fill"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <h4>Architecture</h4>
+          <div class="skill-bar" data-level="80"><span>REST APIs, cross-browser, code review</span><div class="bar"><div class="fill"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section projects">
+      <h2 class="section-title">Selected projects</h2>
+      <p class="section-sub">Short, narrative blurbs of work that showcase impact (derived from résumé roles). :contentReference[oaicite:10]{index=10}</p>
+
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-content">
+            <h3>Enterprise Booking UI — Sabre</h3>
+            <p>Led frontend architecture for an enterprise booking application: improved performance, introduced modular components, and reduced downtime. Guided a team through feature rollouts and code reviews. (Sabre) :contentReference[oaicite:11]{index=11}</p>
+            <div class="project-tags">
+              <span>Angular</span><span>TypeScript</span><span>GSAP</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-content">
+            <h3>Custom CMS Themes & Plugins</h3>
+            <p>Multiple WordPress and Drupal projects: custom themes, plugins and reusable libraries that improved developer velocity and site maintainability. :contentReference[oaicite:12]{index=12}</p>
+            <div class="project-tags">
+              <span>WordPress</span><span>Drupal</span><span>PHP</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-content">
+            <h3>Banking Ops & IT Automations</h3>
+            <p>Worked on process automation and IT operations during a branch-services role; practical exposure to banking workflows and compliance that informs later enterprise work. :contentReference[oaicite:13]{index=13}</p>
+            <div class="project-tags">
+              <span>Processes</span><span>Automation</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact">
+      <h2 class="section-title">Let's connect</h2>
+      <p class="section-sub">Open to collaborations, mentorship, and new challenges. :contentReference[oaicite:14]{index=14}</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h4>Email</h4>
+          <a href="mailto:khan_imran@hotmail.com">khan_imran@hotmail.com</a>
+        </div>
+        <div class="contact-card">
+          <h4>Phone</h4>
+          <a href="tel:+923110728411">+92 311 0728411</a>
+        </div>
+        <div class="contact-card">
+          <h4>LinkedIn</h4>
+          <a href="https://www.linkedin.com/in/imran-ahmed-khan-11b26730" target="_blank" rel="noopener">linkedin.com/in/imran-ahmed-khan-11b26730</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <small>Résumé content adapted from uploaded PDF. :contentReference[oaicite:15]{index=15}</small>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
