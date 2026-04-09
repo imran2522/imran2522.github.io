@@ -182,6 +182,7 @@ h1 {
 }
 
 .hero-tagline {
+    display: inline-block;
     font-size: clamp(1.1rem, 3vw, 1.5rem);
     color: var(--text-secondary);
     margin: 1.5rem 0;
